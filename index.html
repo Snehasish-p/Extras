@@ -269,161 +269,147 @@ I have only one simple question for you…
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const yesBtn = document.getElementById('yesBtn');
-            const noBtn = document.getElementById('noBtn');
-            const message = document.getElementById('message');
-            const floatingHearts = document.getElementById('floatingHearts');
-            
-            // Create floating hearts
-            for (let i = 0; i < 15; i++) {
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const message = document.getElementById('message');
+    const floatingHearts = document.getElementById('floatingHearts');
+    const music = document.getElementById('music');
+    
+    // FIXED AUDIO URL - Replace with your actual audio URL
+    // For GitHub raw file: https://github.com/username/repository/raw/main/path/to/audio.mp3
+    // music.src = "https://github.com/Snehasish-p/Extras/raw/main/keys-of-moon-white-petals(chosic.com).mp3";
+    
+    // Create floating hearts
+    for (let i = 0; i < 15; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerHTML = '❤';
+        heart.style.left = `${Math.random() * 100}%`;
+        heart.style.top = `${Math.random() * 100}%`;
+        heart.style.fontSize = `${Math.random() * 20 + 15}px`;
+        heart.style.animationDelay = `${Math.random() * 5}s`;
+        floatingHearts.appendChild(heart);
+    }
+    
+    // When YES is clicked, show the message
+    yesBtn.addEventListener('click', function() {
+        // Play music
+        music.play().catch(e => {
+            console.log("Audio play failed:", e);
+            // If autoplay is blocked, show a message
+            alert("Click 'OK' then try the YES button again to hear the music!");
+        });
+        
+        message.style.display = 'block';
+        yesBtn.style.display = 'none';
+        noBtn.style.display = 'none';
+        
+        // Start countdown display
+        startCountdown();
+        
+        // Create celebration hearts
+        for (let i = 0; i < 30; i++) {
+            setTimeout(() => {
                 const heart = document.createElement('div');
                 heart.classList.add('heart');
                 heart.innerHTML = '❤';
                 heart.style.left = `${Math.random() * 100}%`;
                 heart.style.top = `${Math.random() * 100}%`;
-                heart.style.fontSize = `${Math.random() * 20 + 15}px`;
-                heart.style.animationDelay = `${Math.random() * 5}s`;
+                heart.style.fontSize = `${Math.random() * 25 + 20}px`;
+                heart.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                heart.style.opacity = '0.9';
                 floatingHearts.appendChild(heart);
+                
+                // Remove heart after animation
+                setTimeout(() => {
+                    heart.remove();
+                }, 3000);
+            }, i * 100);
+        }
+    });
+    
+    // When NO is clicked, move the button to a random position
+    noBtn.addEventListener('click', function() {
+        // Get container dimensions
+        const container = document.querySelector('.container');
+        const containerRect = container.getBoundingClientRect();
+        const btnRect = noBtn.getBoundingClientRect();
+        
+        // Calculate maximum x and y positions
+        const maxX = containerRect.width - btnRect.width - 20;
+        const maxY = containerRect.height - btnRect.height - 20;
+        
+        // Generate random position within container
+        const randomX = Math.floor(Math.random() * maxX);
+        const randomY = Math.floor(Math.random() * maxY);
+        
+        // Move the button to random position
+        noBtn.style.position = 'absolute';
+        noBtn.style.left = `${randomX}px`;
+        noBtn.style.top = `${randomY}px`;
+        
+        // Change button text temporarily
+        const originalText = noBtn.innerHTML;
+        noBtn.innerHTML = '<i class="fas fa-running"></i> Try again!';
+        noBtn.style.backgroundColor = '#ffcdd2';
+        
+        setTimeout(() => {
+            noBtn.innerHTML = originalText;
+            noBtn.style.backgroundColor = '';
+        }, 1000);
+    });
+    
+    // Also move the button when mouse hovers over it
+    noBtn.addEventListener('mouseover', function() {
+        // 30% chance to move on hover
+        if (Math.random() < 0.3) {
+            const container = document.querySelector('.container');
+            const containerRect = container.getBoundingClientRect();
+            const btnRect = noBtn.getBoundingClientRect();
+            
+            const maxX = containerRect.width - btnRect.width - 20;
+            const maxY = containerRect.height - btnRect.height - 20;
+            
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = `${randomX}px`;
+            noBtn.style.top = `${randomY}px`;
+        }
+    });
+    
+    // COUNTDOWN FUNCTION
+    function startCountdown() {
+        // 🔹 SET VALENTINE DATE & TIME HERE
+        const targetDate = new Date("2026-02-14T19:00:00").getTime();
+        const countdownElement = document.getElementById('countdown');
+        
+        // Update every second
+        const interval = setInterval(() => {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+            
+            if (diff <= 0) {
+                countdownElement.innerHTML = "It's time for our date! 💕";
+                clearInterval(interval);
+                return;
             }
             
-            // When YES is clicked, show the message
-            yesBtn.addEventListener('click', function() {
-                message.style.display = 'block';
-                yesBtn.style.display = 'none';
-                noBtn.style.display = 'none';
-                
-                // Create celebration hearts
-                for (let i = 0; i < 30; i++) {
-                    setTimeout(() => {
-                        const heart = document.createElement('div');
-                        heart.classList.add('heart');
-                        heart.innerHTML = '❤';
-                        heart.style.left = `${Math.random() * 100}%`;
-                        heart.style.top = `${Math.random() * 100}%`;
-                        heart.style.fontSize = `${Math.random() * 25 + 20}px`;
-                        heart.style.animationDuration = `${Math.random() * 3 + 2}s`;
-                        heart.style.opacity = '0.9';
-                        floatingHearts.appendChild(heart);
-                        
-                        // Remove heart after animation
-                        setTimeout(() => {
-                            heart.remove();
-                        }, 3000);
-                    }, i * 100);
-                }
-            });
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
             
-            // When NO is clicked, move the button to a random position
-            noBtn.addEventListener('click', function() {
-                // Get container dimensions
-                const container = document.querySelector('.container');
-                const containerRect = container.getBoundingClientRect();
-                const btnRect = noBtn.getBoundingClientRect();
-                
-                // Calculate maximum x and y positions
-                const maxX = containerRect.width - btnRect.width - 20;
-                const maxY = containerRect.height - btnRect.height - 20;
-                
-                // Generate random position within container
-                const randomX = Math.floor(Math.random() * maxX);
-                const randomY = Math.floor(Math.random() * maxY);
-                
-                // Move the button to random position
-                noBtn.style.position = 'absolute';
-                noBtn.style.left = `${randomX}px`;
-                noBtn.style.top = `${randomY}px`;
-                
-                // Change button text temporarily
-                const originalText = noBtn.innerHTML;
-                noBtn.innerHTML = '<i class="fas fa-running"></i> Try again!';
-                noBtn.style.backgroundColor = '#ffcdd2';
-                
-                setTimeout(() => {
-                    noBtn.innerHTML = originalText;
-                    noBtn.style.backgroundColor = '';
-                }, 1000);
-            });
-            
-            // Also move the button when mouse hovers over it
-            noBtn.addEventListener('mouseover', function() {
-                // 30% chance to move on hover
-                if (Math.random() < 0.3) {
-                    const container = document.querySelector('.container');
-                    const containerRect = container.getBoundingClientRect();
-                    const btnRect = noBtn.getBoundingClientRect();
-                    
-                    const maxX = containerRect.width - btnRect.width - 20;
-                    const maxY = containerRect.height - btnRect.height - 20;
-                    
-                    const randomX = Math.floor(Math.random() * maxX);
-                    const randomY = Math.floor(Math.random() * maxY);
-                    
-                    noBtn.style.position = 'absolute';
-                    noBtn.style.left = `${randomX}px`;
-                    noBtn.style.top = `${randomY}px`;
-                }
-            });
-        });
-		
-		// 🔹 SET VALENTINE DATE & TIME HERE
-const targetDate = new Date("2026-02-14T19:00:00").getTime();
-
-// COUNTDOWN
-setInterval(()=>{
-const now=new Date().getTime();
-const diff=targetDate-now;
-
-if(diff<=0){
-document.getElementById("countdown").innerHTML="It's time 💕";
-return;
-}
-
-const d=Math.floor(diff/(1000*60*60*24));
-const h=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-const m=Math.floor((diff%(1000*60*60))/(1000*60));
-const s=Math.floor((diff%(1000*60))/1000);
-
-document.getElementById("countdown").innerHTML=
-`⏳ ${d}d ${h}h ${m}m ${s}s to our moment`;
-},1000);
-
-// BUTTONS
-const yes=document.getElementById("yes");
-const no=document.getElementById("no");
-const msg=document.getElementById("message");
-const music=document.getElementById("music");
-
-yes.onclick=()=>{
-music.play();
-msg.style.display="block";
-yes.style.display="none";
-no.style.display="none";
-fireworks();
-};
-
-no.onclick=()=>{
-no.style.left=Math.random()*200+"px";
-no.style.top=Math.random()*200+"px";
-no.style.position="absolute";
-};
-
-// FIREWORKS
-function fireworks(){
-for(let i=0;i<80;i++){
-const f=document.createElement("div");
-f.className="firework";
-f.style.left="50%";
-f.style.top="50%";
-f.style.background=`hsl(${Math.random()*360},100%,60%)`;
-f.style.setProperty("--x",`${Math.random()*400-200}px`);
-f.style.setProperty("--y",`${Math.random()*400-200}px`);
-document.body.appendChild(f);
-setTimeout(()=>f.remove(),1000);
-}
-}
+            countdownElement.innerHTML = 
+                `⏳ ${days}d ${hours}h ${minutes}m ${seconds}s until our Valentine's date!`;
+        }, 1000);
+    }
+});
     </script>
 </body>
 
 </html>
+
 
 
