@@ -315,13 +315,9 @@ I have only one simple question for you…
     const noBtn = document.getElementById('noBtn');
     const message = document.getElementById('message');
     const floatingHearts = document.getElementById('floatingHearts');
-	const choices = document.getElementById("choices").style.display = "block";
+    const choices = document.getElementById("choices");
 
     const music = document.getElementById('music');
-    
-    // FIXED AUDIO URL - Replace with your actual audio URL
-    // For GitHub raw file: https://github.com/username/repository/raw/main/path/to/audio.mp3
-    // music.src = "https://github.com/Snehasish-p/Extras/raw/main/keys-of-moon-white-petals(chosic.com).mp3";
     
     // Create floating hearts
     for (let i = 0; i < 15; i++) {
@@ -335,7 +331,7 @@ I have only one simple question for you…
         floatingHearts.appendChild(heart);
     }
     
-    // When YES is clicked, show the message
+    // When YES is clicked, show the message with time and additional questions
     yesBtn.addEventListener('click', function() {
         // Play music
         music.play().catch(e => {
@@ -348,8 +344,40 @@ I have only one simple question for you…
         yesBtn.style.display = 'none';
         noBtn.style.display = 'none';
         
+        // Show time popup
+        const now = new Date();
+        const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        
+        // Create and show time popup message
+        const timePopup = document.createElement('div');
+        timePopup.style.cssText = `
+            background: #ff4081;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 300px;
+            animation: fadeIn 0.5s ease;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(255, 64, 129, 0.3);
+        `;
+        timePopup.innerHTML = `⏰ Time of your response: ${timeString} 💖`;
+        
+        // Insert time popup after the message
+        message.insertAdjacentElement('afterend', timePopup);
+        
         // Start countdown display
         startCountdown();
+        
+        // Show additional questions after a short delay
+        setTimeout(() => {
+            choices.style.display = 'block';
+            choices.style.animation = 'fadeIn 1s ease';
+            
+            // Smooth scroll to questions
+            choices.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 1000);
         
         // Create celebration hearts
         for (let i = 0; i < 30; i++) {
@@ -449,30 +477,25 @@ I have only one simple question for you…
                 `⏳ ${days}d ${hours}h ${minutes}m ${seconds}s until our Valentine's date!`;
         }, 1000);
     }
-			function submitChoices() {
-			  const time = document.querySelector('input[name="time"]:checked');
-			  const food = document.querySelector('input[name="food"]:checked');
-			
-			  if (!time || !food) {
-			    alert("Please choose both, my love 💕");
-			    return;
-			  }
-			
-			  alert(
-			    "💖 Perfect!\n\n" +
-			    "Time together: " + time.value + "\n" +
-			    "Dinner choice: " + food.value + "\n\n" +
-			    "I can't wait already 😍"
-			  );
-			}
+    
+    function submitChoices() {
+        const time = document.querySelector('input[name="time"]:checked');
+        const food = document.querySelector('input[name="food"]:checked');
+        
+        if (!time || !food) {
+            alert("Please choose both, my love 💕");
+            return;
+        }
+        
+        alert(
+            "💖 Perfect!\n\n" +
+            "Time together: " + time.value + "\n" +
+            "Dinner choice: " + food.value + "\n\n" +
+            "I can't wait already 😍"
+        );
+    }
 
 });
     </script>
 </body>
-
 </html>
-
-
-
-
-
