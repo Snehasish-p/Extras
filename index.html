@@ -175,51 +175,94 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 
-const yesBtn = document.getElementById('yesBtn');
-const noBtn = document.getElementById('noBtn');
-const message = document.getElementById('message');
-const choices = document.getElementById('choices');
-const music = document.getElementById('music');
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const message = document.getElementById('message');
+    const floatingHearts = document.getElementById('floatingHearts');
+    const choices = document.getElementById('choices');
+    const music = document.getElementById('music');
 
-yesBtn.addEventListener('click', function () {
-    music.play().catch(()=>{});
-    message.style.display = 'block';
-    choices.style.display = 'block';
-    yesBtn.style.display = 'none';
-    noBtn.style.display = 'none';
-    startCountdown();
-});
+    // Floating hearts background
+    for (let i = 0; i < 15; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerHTML = '❤';
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.top = Math.random() * 100 + '%';
+        heart.style.fontSize = Math.random() * 20 + 15 + 'px';
+        heart.style.animationDelay = Math.random() * 5 + 's';
+        floatingHearts.appendChild(heart);
+    }
 
-noBtn.addEventListener('click', function () {
-    noBtn.style.position = 'absolute';
-    noBtn.style.left = Math.random()*200 + 'px';
-    noBtn.style.top = Math.random()*200 + 'px';
-});
+    // YES BUTTON
+    yesBtn.addEventListener('click', function () {
 
-function startCountdown() {
-    const targetDate = new Date("2026-02-14T19:00:00").getTime();
-    const countdownElement = document.getElementById("countdown");
+        // Play music (allowed after user click)
+        music.play().catch(() => {});
 
-    setInterval(() => {
-        const now = new Date().getTime();
-        const diff = targetDate - now;
+        // Show message + questions
+        message.style.display = 'block';
+        choices.style.display = 'block';
 
-        if (diff <= 0) {
-            countdownElement.innerHTML = "It's our moment 💕";
-            return;
+        // Hide buttons
+        yesBtn.style.display = 'none';
+        noBtn.style.display = 'none';
+
+        startCountdown();
+
+        // Celebration hearts
+        for (let i = 0; i < 30; i++) {
+            setTimeout(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.top = Math.random() * 100 + '%';
+                heart.style.fontSize = Math.random() * 25 + 20 + 'px';
+                heart.style.opacity = '0.9';
+                floatingHearts.appendChild(heart);
+                setTimeout(() => heart.remove(), 3000);
+            }, i * 100);
         }
+    });
 
-        const d = Math.floor(diff / (1000*60*60*24));
-        const h = Math.floor((diff / (1000*60*60)) % 24);
-        const m = Math.floor((diff / (1000*60)) % 60);
-        const s = Math.floor((diff / 1000) % 60);
+    // NO BUTTON (Runaway)
+    noBtn.addEventListener('click', function () {
+        const container = document.querySelector('.container');
+        const c = container.getBoundingClientRect();
+        const b = noBtn.getBoundingClientRect();
 
-        countdownElement.innerHTML = `⏳ ${d}d ${h}h ${m}m ${s}s until us`;
-    }, 1000);
+        noBtn.style.position = 'absolute';
+        noBtn.style.left = Math.random() * (c.width - b.width) + 'px';
+        noBtn.style.top = Math.random() * (c.height - b.height) + 'px';
+    });
+
+    // COUNTDOWN
+    function startCountdown() {
+        const targetDate = new Date("2026-02-14T19:00:00").getTime();
+        const el = document.getElementById('countdown');
+
+        setInterval(() => {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+
+            if (diff <= 0) {
+                el.innerHTML = "It's our moment 💕";
+                return;
+            }
+
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const m = Math.floor((diff / (1000 * 60)) % 60);
+            const s = Math.floor((diff / 1000) % 60);
+
+            el.innerHTML = `⏳ ${d}d ${h}h ${m}m ${s}s until us`;
+        }, 1000);
+    }
+
 });
 
-});
-
+// MUST be outside DOMContentLoaded
 function submitChoices() {
     const time = document.querySelector('input[name="time"]:checked');
     const food = document.querySelector('input[name="food"]:checked');
@@ -230,13 +273,15 @@ function submitChoices() {
     }
 
     alert(
-        "💖 Perfect choice!\n\n" +
+        "💖 Perfect!\n\n" +
         "Time together: " + time.value + "\n" +
-        "Dinner: " + food.value + "\n\n" +
+        "Dinner choice: " + food.value + "\n\n" +
         "I can't wait already 😍"
     );
 }
 </script>
 
+
 </body>
 </html>
+
