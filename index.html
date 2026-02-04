@@ -158,6 +158,80 @@
             font-size: 1rem;
         }
         
+        /* Time popup styles */
+        .time-popup {
+            background: #ff4081;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 300px;
+            animation: fadeIn 0.5s ease;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(255, 64, 129, 0.3);
+            display: none;
+        }
+        
+        /* Additional questions styles */
+        .choices {
+            display: none;
+            margin-top: 40px;
+            padding: 25px;
+            background-color: #fff5f8;
+            border-radius: 15px;
+            border: 2px solid #ff80ab;
+            text-align: left;
+            animation: fadeIn 1s ease;
+        }
+        
+        .choices h3 {
+            color: #c2185b;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .choices p {
+            margin-top: 15px;
+            color: #880e4f;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .choices label {
+            display: block;
+            padding: 8px 0;
+            color: #880e4f;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+        
+        .choices input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        
+        .submit-btn {
+            background: #ff4081;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background: #f50057;
+            transform: scale(1.05);
+        }
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -213,6 +287,14 @@
                 font-size: 1.3rem;
                 min-width: 130px;
             }
+            
+            .choices {
+                padding: 15px;
+            }
+            
+            .choices h3 {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -263,239 +345,222 @@ I have only one simple question for you…
             </div>
         </div>
         
+        <!-- Time popup will be inserted here -->
+        <div id="timePopupContainer"></div>
+        
+        <!-- Additional Questions Section -->
+        <div class="choices" id="choices">
+            <h3>💞 Tell me, my love…</h3>
+            
+            <!-- Question 1 -->
+            <p>How would you love to spend our special time together?</p>
+            
+            <label><input type="radio" name="time" value="Talking about everything"> 💬 Talking endlessly about life, dreams & us</label>
+            <label><input type="radio" name="time" value="Romantic moments"> 💖 Sharing sweet romantic moments & feelings</label>
+            <label><input type="radio" name="time" value="Admiring each other"> 😍 Just admiring each other and feeling the love</label>
+            <label><input type="radio" name="time" value="Fun activity"> 🎮 Doing something fun together (movie, game, activity)</label>
+            
+            <!-- Question 2 -->
+            <p>What would you enjoy having for our dinner date?</p>
+            
+            <label><input type="radio" name="food" value="Indian"> 🇮🇳 Indian comfort food (Biryani, curries & love)</label>
+            <label><input type="radio" name="food" value="Continental"> 🍝 Continental delights (Pasta & noodles)</label>
+            <label><input type="radio" name="food" value="Chinese"> 🥟 Chinese cravings (Momos & chilli chicken)</label>
+            <label><input type="radio" name="food" value="Fast Food"> 🍔 Fast food mood (Pizza & burgers)</label>
+            
+            <button class="submit-btn" onclick="submitChoices()">
+                💕 Submit my choices
+            </button>
+        </div>
+        
         <!-- Floating hearts in background -->
         <div class="floating-hearts" id="floatingHearts"></div>
-
-		<div class="choices" id="choices" style="display:none; margin-top:25px; text-align:left;">
-		
-		  <h3 style="color:#c2185b; text-align:center;">
-		    💞 Tell me, my love…
-		  </h3>
-		
-		  <!-- Question 1 -->
-		  <p style="margin-top:15px; color:#880e4f; font-weight:bold;">
-		    How would you love to spend our special time together?
-		  </p>
-		
-		  <label><input type="radio" name="time" value="Talking about everything"> 💬 Talking endlessly about life, dreams & us</label><br>
-		  <label><input type="radio" name="time" value="Romantic moments"> 💖 Sharing sweet romantic moments & feelings</label><br>
-		  <label><input type="radio" name="time" value="Admiring each other"> 😍 Just admiring each other and feeling the love</label><br>
-		  <label><input type="radio" name="time" value="Fun activity"> 🎮 Doing something fun together (movie, game, activity)</label>
-		
-		  <!-- Question 2 -->
-		  <p style="margin-top:20px; color:#880e4f; font-weight:bold;">
-		    What would you enjoy having for our dinner date?
-		  </p>
-		
-		  <label><input type="radio" name="food" value="Indian"> 🇮🇳 Indian comfort food (Biryani, curries & love)</label><br>
-		  <label><input type="radio" name="food" value="Continental"> 🍝 Continental delights (Pasta & noodles)</label><br>
-		  <label><input type="radio" name="food" value="Chinese"> 🥟 Chinese cravings (Momos & chilli chicken)</label><br>
-		  <label><input type="radio" name="food" value="Fast Food"> 🍔 Fast food mood (Pizza & burgers)</label>
-		
-		  <div style="text-align:center; margin-top:20px;">
-		    <button onclick="submitChoices()" style="
-		      background:#ff4081;
-		      color:white;
-		      padding:12px 30px;
-		      border:none;
-		      border-radius:30px;
-		      font-size:1.1rem;
-		      cursor:pointer;">
-		      💕 Submit my choices
-		    </button>
-		  </div>
-		
-		</div>
 
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-    const yesBtn = document.getElementById('yesBtn');
-    const noBtn = document.getElementById('noBtn');
-    const message = document.getElementById('message');
-    const floatingHearts = document.getElementById('floatingHearts');
-    const choices = document.getElementById("choices");
-
-    const music = document.getElementById('music');
-    
-    // Create floating hearts
-    for (let i = 0; i < 15; i++) {
-        const heart = document.createElement('div');
-        heart.classList.add('heart');
-        heart.innerHTML = '❤';
-        heart.style.left = `${Math.random() * 100}%`;
-        heart.style.top = `${Math.random() * 100}%`;
-        heart.style.fontSize = `${Math.random() * 20 + 15}px`;
-        heart.style.animationDelay = `${Math.random() * 5}s`;
-        floatingHearts.appendChild(heart);
-    }
-    
-    // When YES is clicked, show the message with time and additional questions
-    yesBtn.addEventListener('click', function() {
-        // Play music
-        music.play().catch(e => {
-            console.log("Audio play failed:", e);
-            // If autoplay is blocked, show a message
-            alert("Click 'OK' then try the YES button again to hear the music!");
-        });
-        
-        message.style.display = 'block';
-        yesBtn.style.display = 'none';
-        noBtn.style.display = 'none';
-        
-        // Show time popup
-        const now = new Date();
-        const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-        
-        // Create and show time popup message
-        const timePopup = document.createElement('div');
-        timePopup.style.cssText = `
-            background: #ff4081;
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px auto;
-            max-width: 300px;
-            animation: fadeIn 0.5s ease;
-            font-weight: bold;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 10px rgba(255, 64, 129, 0.3);
-        `;
-        timePopup.innerHTML = `⏰ Time of your response: ${timeString} 💖`;
-        
-        // Insert time popup after the message
-        message.insertAdjacentElement('afterend', timePopup);
-        
-        // Start countdown display
-        startCountdown();
-        
-        // Show additional questions after a short delay
-        setTimeout(() => {
-            choices.style.display = 'block';
-            choices.style.animation = 'fadeIn 1s ease';
+            const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+            const message = document.getElementById('message');
+            const floatingHearts = document.getElementById('floatingHearts');
+            const choices = document.getElementById("choices");
+            const timePopupContainer = document.getElementById('timePopupContainer');
+            const music = document.getElementById('music');
             
-            // Smooth scroll to questions
-            choices.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }, 1000);
-        
-        // Create celebration hearts
-        for (let i = 0; i < 30; i++) {
-            setTimeout(() => {
+            // Create floating hearts
+            for (let i = 0; i < 15; i++) {
                 const heart = document.createElement('div');
                 heart.classList.add('heart');
                 heart.innerHTML = '❤';
                 heart.style.left = `${Math.random() * 100}%`;
                 heart.style.top = `${Math.random() * 100}%`;
-                heart.style.fontSize = `${Math.random() * 25 + 20}px`;
-                heart.style.animationDuration = `${Math.random() * 3 + 2}s`;
-                heart.style.opacity = '0.9';
+                heart.style.fontSize = `${Math.random() * 20 + 15}px`;
+                heart.style.animationDelay = `${Math.random() * 5}s`;
                 floatingHearts.appendChild(heart);
+            }
+            
+            // When YES is clicked, show the message with time and additional questions
+            yesBtn.addEventListener('click', function() {
+                // Play music
+                music.play().catch(e => {
+                    console.log("Audio play failed:", e);
+                    // If autoplay is blocked, show a message
+                    alert("Click 'OK' then try the YES button again to hear the music!");
+                });
                 
-                // Remove heart after animation
+                // Hide buttons and show message
+                yesBtn.style.display = 'none';
+                noBtn.style.display = 'none';
+                message.style.display = 'block';
+                
+                // Show time popup
+                const now = new Date();
+                const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                
+                // Create time popup
+                const timePopup = document.createElement('div');
+                timePopup.className = 'time-popup';
+                timePopup.style.display = 'block';
+                timePopup.innerHTML = `⏰ Time of your response: ${timeString} 💖`;
+                
+                // Insert time popup after message
+                timePopupContainer.appendChild(timePopup);
+                
+                // Start countdown display
+                startCountdown();
+                
+                // Show additional questions after a short delay
                 setTimeout(() => {
-                    heart.remove();
-                }, 3000);
-            }, i * 100);
+                    choices.style.display = 'block';
+                    
+                    // Smooth scroll to questions
+                    setTimeout(() => {
+                        choices.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'nearest' 
+                        });
+                    }, 300);
+                }, 800);
+                
+                // Create celebration hearts
+                for (let i = 0; i < 30; i++) {
+                    setTimeout(() => {
+                        const heart = document.createElement('div');
+                        heart.classList.add('heart');
+                        heart.innerHTML = '❤';
+                        heart.style.left = `${Math.random() * 100}%`;
+                        heart.style.top = `${Math.random() * 100}%`;
+                        heart.style.fontSize = `${Math.random() * 25 + 20}px`;
+                        heart.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                        heart.style.opacity = '0.9';
+                        floatingHearts.appendChild(heart);
+                        
+                        // Remove heart after animation
+                        setTimeout(() => {
+                            if (heart.parentNode) {
+                                heart.remove();
+                            }
+                        }, 3000);
+                    }, i * 100);
+                }
+            });
+            
+            // When NO is clicked, move the button to a random position
+            noBtn.addEventListener('click', function() {
+                // Get container dimensions
+                const container = document.querySelector('.container');
+                const containerRect = container.getBoundingClientRect();
+                const btnRect = noBtn.getBoundingClientRect();
+                
+                // Calculate maximum x and y positions
+                const maxX = containerRect.width - btnRect.width - 20;
+                const maxY = containerRect.height - btnRect.height - 20;
+                
+                // Generate random position within container
+                const randomX = Math.floor(Math.random() * maxX);
+                const randomY = Math.floor(Math.random() * maxY);
+                
+                // Move the button to random position
+                noBtn.style.position = 'absolute';
+                noBtn.style.left = `${randomX}px`;
+                noBtn.style.top = `${randomY}px`;
+                
+                // Change button text temporarily
+                const originalText = noBtn.innerHTML;
+                noBtn.innerHTML = '<i class="fas fa-running"></i> Try again!';
+                noBtn.style.backgroundColor = '#ffcdd2';
+                
+                setTimeout(() => {
+                    noBtn.innerHTML = originalText;
+                    noBtn.style.backgroundColor = '';
+                }, 1000);
+            });
+            
+            // Also move the button when mouse hovers over it
+            noBtn.addEventListener('mouseover', function() {
+                // 30% chance to move on hover
+                if (Math.random() < 0.3) {
+                    const container = document.querySelector('.container');
+                    const containerRect = container.getBoundingClientRect();
+                    const btnRect = noBtn.getBoundingClientRect();
+                    
+                    const maxX = containerRect.width - btnRect.width - 20;
+                    const maxY = containerRect.height - btnRect.height - 20;
+                    
+                    const randomX = Math.floor(Math.random() * maxX);
+                    const randomY = Math.floor(Math.random() * maxY);
+                    
+                    noBtn.style.position = 'absolute';
+                    noBtn.style.left = `${randomX}px`;
+                    noBtn.style.top = `${randomY}px`;
+                }
+            });
+        });
+        
+        // COUNTDOWN FUNCTION
+        function startCountdown() {
+            // 🔹 SET VALENTINE DATE & TIME HERE
+            const targetDate = new Date("2026-02-14T19:00:00").getTime();
+            const countdownElement = document.getElementById('countdown');
+            
+            // Update every second
+            const interval = setInterval(() => {
+                const now = new Date().getTime();
+                const diff = targetDate - now;
+                
+                if (diff <= 0) {
+                    countdownElement.innerHTML = "It's time for our date! 💕";
+                    clearInterval(interval);
+                    return;
+                }
+                
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                countdownElement.innerHTML = 
+                    `⏳ ${days}d ${hours}h ${minutes}m ${seconds}s until our Valentine's date!`;
+            }, 1000);
         }
-    });
-    
-    // When NO is clicked, move the button to a random position
-    noBtn.addEventListener('click', function() {
-        // Get container dimensions
-        const container = document.querySelector('.container');
-        const containerRect = container.getBoundingClientRect();
-        const btnRect = noBtn.getBoundingClientRect();
         
-        // Calculate maximum x and y positions
-        const maxX = containerRect.width - btnRect.width - 20;
-        const maxY = containerRect.height - btnRect.height - 20;
-        
-        // Generate random position within container
-        const randomX = Math.floor(Math.random() * maxX);
-        const randomY = Math.floor(Math.random() * maxY);
-        
-        // Move the button to random position
-        noBtn.style.position = 'absolute';
-        noBtn.style.left = `${randomX}px`;
-        noBtn.style.top = `${randomY}px`;
-        
-        // Change button text temporarily
-        const originalText = noBtn.innerHTML;
-        noBtn.innerHTML = '<i class="fas fa-running"></i> Try again!';
-        noBtn.style.backgroundColor = '#ffcdd2';
-        
-        setTimeout(() => {
-            noBtn.innerHTML = originalText;
-            noBtn.style.backgroundColor = '';
-        }, 1000);
-    });
-    
-    // Also move the button when mouse hovers over it
-    noBtn.addEventListener('mouseover', function() {
-        // 30% chance to move on hover
-        if (Math.random() < 0.3) {
-            const container = document.querySelector('.container');
-            const containerRect = container.getBoundingClientRect();
-            const btnRect = noBtn.getBoundingClientRect();
+        function submitChoices() {
+            const time = document.querySelector('input[name="time"]:checked');
+            const food = document.querySelector('input[name="food"]:checked');
             
-            const maxX = containerRect.width - btnRect.width - 20;
-            const maxY = containerRect.height - btnRect.height - 20;
-            
-            const randomX = Math.floor(Math.random() * maxX);
-            const randomY = Math.floor(Math.random() * maxY);
-            
-            noBtn.style.position = 'absolute';
-            noBtn.style.left = `${randomX}px`;
-            noBtn.style.top = `${randomY}px`;
-        }
-    });
-    
-    // COUNTDOWN FUNCTION
-    function startCountdown() {
-        // 🔹 SET VALENTINE DATE & TIME HERE
-        const targetDate = new Date("2026-02-14T19:00:00").getTime();
-        const countdownElement = document.getElementById('countdown');
-        
-        // Update every second
-        const interval = setInterval(() => {
-            const now = new Date().getTime();
-            const diff = targetDate - now;
-            
-            if (diff <= 0) {
-                countdownElement.innerHTML = "It's time for our date! 💕";
-                clearInterval(interval);
+            if (!time || !food) {
+                alert("Please choose both, my love 💕");
                 return;
             }
             
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            
-            countdownElement.innerHTML = 
-                `⏳ ${days}d ${hours}h ${minutes}m ${seconds}s until our Valentine's date!`;
-        }, 1000);
-    }
-    
-    function submitChoices() {
-        const time = document.querySelector('input[name="time"]:checked');
-        const food = document.querySelector('input[name="food"]:checked');
-        
-        if (!time || !food) {
-            alert("Please choose both, my love 💕");
-            return;
+            alert(
+                "💖 Perfect!\n\n" +
+                "Time together: " + time.value + "\n" +
+                "Dinner choice: " + food.value + "\n\n" +
+                "I can't wait already 😍"
+            );
         }
-        
-        alert(
-            "💖 Perfect!\n\n" +
-            "Time together: " + time.value + "\n" +
-            "Dinner choice: " + food.value + "\n\n" +
-            "I can't wait already 😍"
-        );
-    }
-
-});
     </script>
 </body>
 </html>
