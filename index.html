@@ -37,20 +37,34 @@
             overflow: hidden;
             border: 8px solid #ff4d94;
         }
-
+        
+        .container::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, #ff4d94, #ff9ec0, #ff4d94);
+            z-index: -1;
+            border-radius: 30px;
+        }
+        
         h1 {
             color: #d81b60;
             font-size: 2.8rem;
             margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
             font-weight: 800;
         }
-
+        
         .question {
             font-size: 1.8rem;
             color: #880e4f;
             margin-bottom: 40px;
+            line-height: 1.4;
         }
-
+        
         .options {
             display: flex;
             justify-content: center;
@@ -58,7 +72,7 @@
             margin-top: 50px;
             flex-wrap: wrap;
         }
-
+        
         .yes-btn, .no-btn {
             padding: 18px 40px;
             font-size: 1.5rem;
@@ -66,11 +80,32 @@
             border-radius: 50px;
             cursor: pointer;
             font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            min-width: 150px;
         }
-
-        .yes-btn { background-color: #ff4081; color: white; }
-        .no-btn { background-color: #e0e0e0; }
-
+        
+        .yes-btn {
+            background-color: #ff4081;
+            color: white;
+        }
+        
+        .yes-btn:hover {
+            background-color: #f50057;
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(245, 0, 87, 0.4);
+        }
+        
+        .no-btn {
+            background-color: #e0e0e0;
+            color: #616161;
+            position: relative;
+        }
+        
+        .no-btn:hover {
+            background-color: #bdbdbd;
+        }
+        
         .message {
             display: none;
             margin-top: 40px;
@@ -78,210 +113,304 @@
             background-color: #fce4ec;
             border-radius: 15px;
             border: 3px dashed #ff4081;
+            animation: fadeIn 1s ease;
         }
-
-        .choices {
-            display: none;
-            margin-top: 30px;
-            text-align: left;
-            background: #fff0f6;
-            padding: 25px;
-            border-radius: 15px;
-            border: 2px solid #ff80ab;
-        }
-
-        .choices h3 {
+        
+        .message h2 {
             color: #c2185b;
-            text-align: center;
+            font-size: 2.2rem;
             margin-bottom: 15px;
         }
-
-        .choices p {
+        
+        .message p {
             color: #880e4f;
-            font-weight: bold;
-            margin-top: 15px;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
         }
-
-        .choices label {
-            display: block;
-            margin: 8px 0;
-            cursor: pointer;
+        
+        .hearts {
+            font-size: 2.5rem;
+            color: #ff4081;
+            margin-top: 10px;
+            animation: pulse 1.5s infinite;
         }
-
-        .submit-btn {
-            background: #ff4081;
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            cursor: pointer;
+        
+        .valentine-image {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid #ff4081;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .valentine-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .instructions {
+            color: #757575;
+            font-style: italic;
             margin-top: 20px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
+            font-size: 1rem;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .heart {
+            position: absolute;
+            color: #ff4081;
+            opacity: 0.7;
+            animation: float 5s infinite ease-in-out;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .question {
+                font-size: 1.5rem;
+            }
+            
+            .options {
+                gap: 20px;
+            }
+            
+            .yes-btn, .no-btn {
+                padding: 15px 30px;
+                font-size: 1.3rem;
+                min-width: 130px;
+            }
         }
     </style>
 </head>
-
 <body>
 
 <audio id="music" loop>
 <source src="https://github.com/Snehasish-p/Extras/raw/main/keys-of-moon-white-petals(chosic.com).mp3" type="audio/mpeg">
 </audio>
 
-<div class="container">
+    <div class="container">
+	<h1>Dear Koyena ❤️</h1>
 
-<h1>Dear Koyena ❤️</h1>
+	<p>
+	From the moment you entered my life,  
+	every ordinary day became magical ✨  
+	</p>
+        <div class="valentine-image">
+            <!-- Using a placeholder Valentine's Day image -->
+            <img src="https://github.com/Snehasish-p/Extras/raw/main/photo_2026-02-03_23-52-40.jpg" alt="Valentine's Day">
+        </div>
+		
+		<p>
+I have only one simple question for you…
+</p>
+        
+        <div class="question">Will you be my Valentine now and forever? 💖</div>
+        
+        <div class="options">
+            <button class="yes-btn" id="yesBtn">
+                <i class="fas fa-heart"></i> YES
+            </button>
+            <button class="no-btn" id="noBtn">
+                <i class="fas fa-times"></i> NO
+            </button>
+        </div>
+        
+        <div class="instructions">(You have to choose YES! The NO button won't work 😉)</div>
+        
+        <div class="message" id="message">
+            <h2>Yay! Our date is final! 🎉</h2>
+            <p>I'm so excited to spend Valentine's Day with you! Get ready for the most romantic day ever! 💕</p>
+			<div class="countdown" id="countdown"></div>
+            <p>Be ready at 7 PM. I'll call and we will have a online dinner together!!💨</p>
+            <div class="hearts">
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart"></i>
+            </div>
+        </div>
+        
+        <!-- Floating hearts in background -->
+        <div class="floating-hearts" id="floatingHearts"></div>
+    </div>
 
-<p>From the moment you entered my life, every ordinary day became magical ✨</p>
-
-<div class="question">Will you be my Valentine now and forever? 💖</div>
-
-<div class="options">
-    <button class="yes-btn" id="yesBtn">YES 💕</button>
-    <button class="no-btn" id="noBtn">NO 🙈</button>
-</div>
-
-<div class="message" id="message">
-    <h2>Yay! Our date is final! 🎉💘</h2>
-    <p>I’m already smiling just thinking about us 💞</p>
-    <div class="countdown" id="countdown"></div>
-</div>
-
-<!-- ✅ ADDED QUESTIONS -->
-<div class="choices" id="choices">
-
-<h3>💞 Tell me, my love…</h3>
-
-<p>How would you love to spend our special time together?</p>
-<label><input type="radio" name="time" value="Endless conversations"> 💬 Endless conversations about life & us</label>
-<label><input type="radio" name="time" value="Romantic moments"> 💖 Soft romantic moments & heartfelt talks</label>
-<label><input type="radio" name="time" value="Just us"> 😍 Just looking at each other & feeling close</label>
-<label><input type="radio" name="time" value="Fun activity"> 🎮 Watching or doing something fun together</label>
-
-<p>What would you enjoy having for our dinner date?</p>
-<label><input type="radio" name="food" value="Indian"> 🇮🇳 Indian comfort food (Biryani & love)</label>
-<label><input type="radio" name="food" value="Continental"> 🍝 Continental delights (Pasta & noodles)</label>
-<label><input type="radio" name="food" value="Chinese"> 🥟 Chinese cravings (Momos & chilli chicken)</label>
-<label><input type="radio" name="food" value="Fast Food"> 🍕 Fast food mood (Pizza & burgers)</label>
-
-<button class="submit-btn" onclick="submitChoices()">💍 Submit my choices</button>
-
-</div>
-
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
     const yesBtn = document.getElementById('yesBtn');
     const noBtn = document.getElementById('noBtn');
     const message = document.getElementById('message');
     const floatingHearts = document.getElementById('floatingHearts');
-    const choices = document.getElementById('choices');
     const music = document.getElementById('music');
-
-    // Floating hearts background
+    
+    // FIXED AUDIO URL - Replace with your actual audio URL
+    // For GitHub raw file: https://github.com/username/repository/raw/main/path/to/audio.mp3
+    // music.src = "https://github.com/Snehasish-p/Extras/raw/main/keys-of-moon-white-petals(chosic.com).mp3";
+    
+    // Create floating hearts
     for (let i = 0; i < 15; i++) {
         const heart = document.createElement('div');
         heart.classList.add('heart');
         heart.innerHTML = '❤';
-        heart.style.left = Math.random() * 100 + '%';
-        heart.style.top = Math.random() * 100 + '%';
-        heart.style.fontSize = Math.random() * 20 + 15 + 'px';
-        heart.style.animationDelay = Math.random() * 5 + 's';
+        heart.style.left = `${Math.random() * 100}%`;
+        heart.style.top = `${Math.random() * 100}%`;
+        heart.style.fontSize = `${Math.random() * 20 + 15}px`;
+        heart.style.animationDelay = `${Math.random() * 5}s`;
         floatingHearts.appendChild(heart);
     }
-
-    // YES BUTTON
-    yesBtn.addEventListener('click', function () {
-
-        // Play music (allowed after user click)
-        music.play().catch(() => {});
-
-        // Show message + questions
+    
+    // When YES is clicked, show the message
+    yesBtn.addEventListener('click', function() {
+        // Play music
+        music.play().catch(e => {
+            console.log("Audio play failed:", e);
+            // If autoplay is blocked, show a message
+            alert("Click 'OK' then try the YES button again to hear the music!");
+        });
+        
         message.style.display = 'block';
-        choices.style.display = 'block';
-
-        // Hide buttons
         yesBtn.style.display = 'none';
         noBtn.style.display = 'none';
-
+        
+        // Start countdown display
         startCountdown();
-
-        // Celebration hearts
+        
+        // Create celebration hearts
         for (let i = 0; i < 30; i++) {
             setTimeout(() => {
                 const heart = document.createElement('div');
                 heart.classList.add('heart');
                 heart.innerHTML = '❤';
-                heart.style.left = Math.random() * 100 + '%';
-                heart.style.top = Math.random() * 100 + '%';
-                heart.style.fontSize = Math.random() * 25 + 20 + 'px';
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.top = `${Math.random() * 100}%`;
+                heart.style.fontSize = `${Math.random() * 25 + 20}px`;
+                heart.style.animationDuration = `${Math.random() * 3 + 2}s`;
                 heart.style.opacity = '0.9';
                 floatingHearts.appendChild(heart);
-                setTimeout(() => heart.remove(), 3000);
+                
+                // Remove heart after animation
+                setTimeout(() => {
+                    heart.remove();
+                }, 3000);
             }, i * 100);
         }
     });
-
-    // NO BUTTON (Runaway)
-    noBtn.addEventListener('click', function () {
+    
+    // When NO is clicked, move the button to a random position
+    noBtn.addEventListener('click', function() {
+        // Get container dimensions
         const container = document.querySelector('.container');
-        const c = container.getBoundingClientRect();
-        const b = noBtn.getBoundingClientRect();
-
+        const containerRect = container.getBoundingClientRect();
+        const btnRect = noBtn.getBoundingClientRect();
+        
+        // Calculate maximum x and y positions
+        const maxX = containerRect.width - btnRect.width - 20;
+        const maxY = containerRect.height - btnRect.height - 20;
+        
+        // Generate random position within container
+        const randomX = Math.floor(Math.random() * maxX);
+        const randomY = Math.floor(Math.random() * maxY);
+        
+        // Move the button to random position
         noBtn.style.position = 'absolute';
-        noBtn.style.left = Math.random() * (c.width - b.width) + 'px';
-        noBtn.style.top = Math.random() * (c.height - b.height) + 'px';
+        noBtn.style.left = `${randomX}px`;
+        noBtn.style.top = `${randomY}px`;
+        
+        // Change button text temporarily
+        const originalText = noBtn.innerHTML;
+        noBtn.innerHTML = '<i class="fas fa-running"></i> Try again!';
+        noBtn.style.backgroundColor = '#ffcdd2';
+        
+        setTimeout(() => {
+            noBtn.innerHTML = originalText;
+            noBtn.style.backgroundColor = '';
+        }, 1000);
     });
-
-    // COUNTDOWN
+    
+    // Also move the button when mouse hovers over it
+    noBtn.addEventListener('mouseover', function() {
+        // 30% chance to move on hover
+        if (Math.random() < 0.3) {
+            const container = document.querySelector('.container');
+            const containerRect = container.getBoundingClientRect();
+            const btnRect = noBtn.getBoundingClientRect();
+            
+            const maxX = containerRect.width - btnRect.width - 20;
+            const maxY = containerRect.height - btnRect.height - 20;
+            
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = `${randomX}px`;
+            noBtn.style.top = `${randomY}px`;
+        }
+    });
+    
+    // COUNTDOWN FUNCTION
     function startCountdown() {
+        // 🔹 SET VALENTINE DATE & TIME HERE
         const targetDate = new Date("2026-02-14T19:00:00").getTime();
-        const el = document.getElementById('countdown');
-
-        setInterval(() => {
+        const countdownElement = document.getElementById('countdown');
+        
+        // Update every second
+        const interval = setInterval(() => {
             const now = new Date().getTime();
             const diff = targetDate - now;
-
+            
             if (diff <= 0) {
-                el.innerHTML = "It's our moment 💕";
+                countdownElement.innerHTML = "It's time for our date! 💕";
+                clearInterval(interval);
                 return;
             }
-
-            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-            const m = Math.floor((diff / (1000 * 60)) % 60);
-            const s = Math.floor((diff / 1000) % 60);
-
-            el.innerHTML = `⏳ ${d}d ${h}h ${m}m ${s}s until us`;
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            countdownElement.innerHTML = 
+                `⏳ ${days}d ${hours}h ${minutes}m ${seconds}s until our Valentine's date!`;
         }, 1000);
     }
-
 });
-
-// MUST be outside DOMContentLoaded
-function submitChoices() {
-    const time = document.querySelector('input[name="time"]:checked');
-    const food = document.querySelector('input[name="food"]:checked');
-
-    if (!time || !food) {
-        alert("Please choose both, my love 💕");
-        return;
-    }
-
-    alert(
-        "💖 Perfect!\n\n" +
-        "Time together: " + time.value + "\n" +
-        "Dinner choice: " + food.value + "\n\n" +
-        "I can't wait already 😍"
-    );
-}
-</script>
-
-
+    </script>
 </body>
+
 </html>
+
+
+
 
