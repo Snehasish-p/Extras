@@ -265,6 +265,48 @@ I have only one simple question for you…
         
         <!-- Floating hearts in background -->
         <div class="floating-hearts" id="floatingHearts"></div>
+
+		<div class="choices" id="choices" style="display:none; margin-top:25px; text-align:left;">
+		
+		  <h3 style="color:#c2185b; text-align:center;">
+		    💞 Tell me, my love…
+		  </h3>
+		
+		  <!-- Question 1 -->
+		  <p style="margin-top:15px; color:#880e4f; font-weight:bold;">
+		    How would you love to spend our special time together?
+		  </p>
+		
+		  <label><input type="radio" name="time" value="Talking about everything"> 💬 Talking endlessly about life, dreams & us</label><br>
+		  <label><input type="radio" name="time" value="Romantic moments"> 💖 Sharing sweet romantic moments & feelings</label><br>
+		  <label><input type="radio" name="time" value="Admiring each other"> 😍 Just admiring each other and feeling the love</label><br>
+		  <label><input type="radio" name="time" value="Fun activity"> 🎮 Doing something fun together (movie, game, activity)</label>
+		
+		  <!-- Question 2 -->
+		  <p style="margin-top:20px; color:#880e4f; font-weight:bold;">
+		    What would you enjoy having for our dinner date?
+		  </p>
+		
+		  <label><input type="radio" name="food" value="Indian"> 🇮🇳 Indian comfort food (Biryani, curries & love)</label><br>
+		  <label><input type="radio" name="food" value="Continental"> 🍝 Continental delights (Pasta & noodles)</label><br>
+		  <label><input type="radio" name="food" value="Chinese"> 🥟 Chinese cravings (Momos & chilli chicken)</label><br>
+		  <label><input type="radio" name="food" value="Fast Food"> 🍔 Fast food mood (Pizza & burgers)</label>
+		
+		  <div style="text-align:center; margin-top:20px;">
+		    <button onclick="submitChoices()" style="
+		      background:#ff4081;
+		      color:white;
+		      padding:12px 30px;
+		      border:none;
+		      border-radius:30px;
+		      font-size:1.1rem;
+		      cursor:pointer;">
+		      💕 Submit my choices
+		    </button>
+		  </div>
+		
+		</div>
+
     </div>
 
     <script>
@@ -273,6 +315,8 @@ I have only one simple question for you…
     const noBtn = document.getElementById('noBtn');
     const message = document.getElementById('message');
     const floatingHearts = document.getElementById('floatingHearts');
+	const choices = document.getElementById("choices").style.display = "block";
+
     const music = document.getElementById('music');
     
     // FIXED AUDIO URL - Replace with your actual audio URL
@@ -405,11 +449,29 @@ I have only one simple question for you…
                 `⏳ ${days}d ${hours}h ${minutes}m ${seconds}s until our Valentine's date!`;
         }, 1000);
     }
+			function submitChoices() {
+			  const time = document.querySelector('input[name="time"]:checked');
+			  const food = document.querySelector('input[name="food"]:checked');
+			
+			  if (!time || !food) {
+			    alert("Please choose both, my love 💕");
+			    return;
+			  }
+			
+			  alert(
+			    "💖 Perfect!\n\n" +
+			    "Time together: " + time.value + "\n" +
+			    "Dinner choice: " + food.value + "\n\n" +
+			    "I can't wait already 😍"
+			  );
+			}
+
 });
     </script>
 </body>
 
 </html>
+
 
 
 
