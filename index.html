@@ -296,6 +296,32 @@
                 font-size: 1.5rem;
             }
         }
+
+				/* 💖 Floating side emojis */
+		.side-love {
+		    position: fixed;
+		    top: 50%;
+		    transform: translateY(-50%);
+		    font-size: 30px;
+		    animation: floatSide 3s ease-in-out infinite;
+		    z-index: 0;
+		    pointer-events: none;
+		}
+		
+		.left-love {
+		    left: 10px;
+		}
+		
+		.right-love {
+		    right: 10px;
+		}
+		
+		@keyframes floatSide {
+		    0% { transform: translateY(-50%) translateY(0px); }
+		    50% { transform: translateY(-50%) translateY(-15px); }
+		    100% { transform: translateY(-50%) translateY(0px); }
+		}
+
     </style>
 </head>
 <body>
@@ -303,6 +329,10 @@
 <audio id="music" loop>
 <source src="https://github.com/Snehasish-p/Extras/raw/main/keys-of-moon-white-petals(chosic.com).mp3" type="audio/mpeg">
 </audio>
+
+	<!-- 💕 Cute floating emojis -->
+<div class="side-love left-love">💖💘💞💓</div>
+<div class="side-love right-love">💝💗💟💕</div>
 
     <div class="container">
 	<h1>Dear Koyena ❤️</h1>
@@ -564,3 +594,4 @@ I have only one simple question for you…
     </script>
 </body>
 </html>
+
