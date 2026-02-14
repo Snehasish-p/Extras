@@ -322,6 +322,31 @@
 		    100% { transform: translateY(-50%) translateY(0px); }
 		}
 
+		/* 💘 Side GIFs */
+.side-gif {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100px;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.left-gif {
+    left: 10px;
+}
+
+.right-gif {
+    right: 10px;
+}
+
+@media (max-width: 768px) {
+    .side-gif {
+        width: 70px;
+    }
+}
+
+
     </style>
 </head>
 <body>
@@ -592,6 +617,16 @@ I have only one simple question for you…
             );
         }
     </script>
+	<!-- 💞 Cute romantic GIFs -->
+<img class="side-gif left-gif" 
+src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" 
+alt="cute love gif">
+
+<img class="side-gif right-gif" 
+src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" 
+alt="cute love gif">
+
 </body>
 </html>
+
 
